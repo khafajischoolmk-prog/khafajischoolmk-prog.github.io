@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مدرسة إبراهيم خفاجي الابتدائية</title>
+<meta name="description" content="الموقع الإلكتروني لمدرسة إبراهيم خفاجي الابتدائية">
+<meta name="theme-color" content="#0b6b5c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="مدرسة خفاجي">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+  html,body{margin:0;padding:0;height:100%;background:#eef4f2;overflow:hidden}
+  #app{position:fixed;top:0;right:0;bottom:0;left:0;width:100%;height:100%;height:100dvh;border:0;display:block;background:#eef4f2}
+  #ld{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;font-family:Tahoma,Arial,sans-serif;color:#0b6b5c;background:#eef4f2;transition:opacity .3s}
+  #ld img{width:96px;height:96px;border-radius:22px;box-shadow:0 6px 20px rgba(11,107,92,.18)}
+  #ld i{width:34px;height:34px;border:4px solid #cfe3de;border-top-color:#0b6b5c;border-radius:50%;animation:r 1s linear infinite}
+  @keyframes r{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<iframe id="app" title="مدرسة إبراهيم خفاجي الابتدائية" allow="camera; microphone; clipboard-read; clipboard-write; geolocation; fullscreen; web-share; autoplay" allowfullscreen></iframe>
+<div id="ld"><img src="icon-180.png" alt=""><i></i><div>جارٍ فتح موقع المدرسة…</div></div>
+<script>
+  // رابط تطبيق Google Apps Script (لا يتغير عند نشر إصدار جديد من نفس عملية النشر)
+  var EXEC = "https://script.google.com/macros/s/AKfycbztf47oPjSPaFmsSSs2I__NrYexLR7d7bBXNaYWnW8doPznJcjzgXng2y2DVbu9ctTh/exec";
+  var f = document.getElementById("app"), ld = document.getElementById("ld");
+  f.onload = function () { ld.style.opacity = "0"; setTimeout(function () { ld.style.display = "none"; }, 350); };
+  setTimeout(function () { ld.style.display = "none"; }, 15000);
+  f.src = EXEC + (location.search || "");
+</script>
+<noscript><p style="text-align:center;font-family:Tahoma"><a href="https://script.google.com/macros/s/AKfycbztf47oPjSPaFmsSSs2I__NrYexLR7d7bBXNaYWnW8doPznJcjzgXng2y2DVbu9ctTh/exec">فتح موقع المدرسة</a></p></noscript>
+</body>
+</html>
