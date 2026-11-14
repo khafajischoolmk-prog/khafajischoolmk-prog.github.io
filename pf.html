@@ -1,0 +1,102 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>استمارة أولياء الأمور</title><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+*{box-sizing:border-box}body{font-family:Tahoma,"Segoe UI",Arial,sans-serif;background:#eef4f2;margin:0;color:#10302b;-webkit-text-size-adjust:100%}
+.w{max-width:760px;margin:0 auto;padding:12px 12px 60px}
+.hd{background:linear-gradient(135deg,#0b4552,#0b6b5c);color:#fff;border-radius:18px;padding:16px 18px;margin-bottom:12px;box-shadow:0 6px 20px rgba(11,107,92,.2)}
+.hd small{display:block;opacity:.92;font-size:13px;line-height:1.7}.hd h1{margin:4px 0 2px;font-size:21px;line-height:1.5}
+.c{background:#fff;border-radius:16px;padding:16px;margin:10px 0;box-shadow:0 3px 14px rgba(0,0,0,.05)}.c h2{margin:0 0 10px;font-size:17px;color:#0b6b5c}
+.q{margin:14px 0 6px;font-weight:700;line-height:1.7}.q .r{color:#c0392b}.hint{color:#5a6b67;font-size:13.5px;line-height:1.8}
+input[type=text],input[type=tel],input[type=number],input[type=date],select,textarea{width:100%;padding:11px 12px;border:1px solid #cfdcd8;border-radius:12px;font:inherit;font-size:16px;background:#fbfdfc;color:#10302b}
+textarea{min-height:90px;resize:vertical}input:focus,select:focus,textarea:focus{outline:2px solid #2bb39a;border-color:#2bb39a}
+.big{direction:ltr;text-align:center;letter-spacing:2px;font-size:19px!important}
+.opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid #dfe9e6;border-radius:12px;margin:6px 0;cursor:pointer;background:#fbfdfc;line-height:1.6}
+.opt input{width:20px;height:20px;flex:none;accent-color:#0b6b5c}.opt.on{border-color:#0b6b5c;background:#e8f4f1}
+button{font:inherit;cursor:pointer}.bt{padding:13px 18px;border:0;border-radius:14px;background:#0b6b5c;color:#fff;font-size:16px;font-weight:700}.bt:disabled{opacity:.55}
+.bt.sec{background:#e3efec;color:#0b6b5c}.row{display:flex;gap:10px;margin-top:16px}.row .bt{flex:1}
+.er{color:#b3261e;font-size:14px;margin-top:8px;line-height:1.7}.ok{background:#e8f4f1;border:1.5px solid #9fd3c6;border-radius:14px;padding:12px 14px;line-height:1.9}
+.note{background:#fbf8ef;border:1.5px solid #e3d9bf;border-radius:14px;padding:10px 14px;line-height:1.9;font-size:14.5px;margin-top:10px}
+.bar{height:8px;background:#eef3f2;border-radius:6px;overflow:hidden;margin:6px 0 2px}.bar i{display:block;height:100%;background:#0b6b5c;transition:width .3s}
+.pg{font-size:13px;color:#5a6b67}.fl{display:block;padding:12px;border:1.5px dashed #9fbfb8;border-radius:12px;text-align:center;color:#0b6b5c;background:#f4faf8;cursor:pointer}
+.fl input{display:none}.inv{border-color:#c0392b!important;background:#fff6f5!important}.stu{font-size:17px}
+</style></head><body><div class="w">
+<div class="hd"><small id="sc"></small><h1 id="tt">استمارة</h1><small id="ss"></small></div>
+<div id="app"><div class="c"><div class="hint">جارٍ التحميل…</div></div></div></div>
+<script>
+var API="https://script.google.com/macros/s/AKfycbztf47oPjSPaFmsSSs2I__NrYexLR7d7bBXNaYWnW8doPznJcjzgXng2y2DVbu9ctTh/exec";var FID=(new URLSearchParams(location.search).get('f')||'').replace(/[^\w]/g,'').slice(0,24),SCHOOL='';document.getElementById('sc').textContent=SCHOOL;
+var app=document.getElementById('app'),F=null,P=[],S={tok:'',who:null,man:null,ans:{},files:{},pg:0};
+var G=['الأول','الثاني','الثالث','الرابع','الخامس','السادس'];
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function dig(s){return String(s||'').replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d)}).replace(/[۰-۹]/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)})}
+function run(fn,args,ok,bad,n){n=n==null?2:n;var m={pfGet:'get',pfFind:'find',pfSubmit:'submit'}[fn];
+  fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({pfapi:m,args:args}),credentials:'omit',redirect:'follow',cache:'no-store'})
+  .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+  .then(function(d){if(d&&d.ok)ok(d.r);else bad(String((d&&d.e)||'حدث خطأ. أعد المحاولة.').replace(/^(Exception|Error):\s*/,''))},
+   function(){if(n>0){setTimeout(function(){run(fn,args,ok,bad,n-1)},n===2?1500:3000);return}bad('تعذّر الاتصال مؤقتًا. تأكد من الإنترنت ثم أعد المحاولة.')})}
+function vis(q){if(!q.cond||!q.cond.k)return true;var v=S.ans[q.cond.k];return Array.isArray(v)?v.indexOf(q.cond.v)>=0:v===q.cond.v}
+function pages(){P=[];var cur={t:'',f:[]};(F.fields||[]).forEach(function(q){if(q.t==='sec'){if(cur.f.length||cur.t)P.push(cur);cur={t:q.l,f:[]}}else cur.f.push(q)});if(cur.f.length||cur.t)P.push(cur);P=P.filter(function(p){return p.f.length})}
+function head(){document.getElementById('tt').textContent=F?F.title:'استمارة';document.getElementById('ss').textContent=F&&F.sub?F.sub:'';try{document.title=(F&&F.title?F.title+' – ':'')+SCHOOL}catch(e){}}
+function boot(){if(!FID){app.innerHTML='<div class="c"><div class="er">الرابط غير مكتمل. تأكد من الرابط الذي وصلك من المدرسة.</div></div>';return}run('pfGet',[FID],function(d){if(d.school){SCHOOL=d.school;document.getElementById('sc').textContent=SCHOOL}F=d.form;head();if(d.closed){app.innerHTML='<div class="c"><h2>'+esc(F.title||'الاستمارة')+'</h2><div class="hint">الاستمارة مغلقة حاليًا. للاستفسار تواصل مع المدرسة.</div></div>';return}pages();start()},function(m){app.innerHTML='<div class="c"><div class="er">'+esc(m)+'</div></div>'})}
+function byName(){return F&&F.idm!=='nid'}
+function start(){if(byName())manForm('',1);else idForm('')}
+function idForm(err){S.tok='';S.who=null;S.man=null;
+  app.innerHTML='<div class="c"><h2>بيانات الطالب</h2><div class="hint">أدخل رقم هوية الطالب (السجل المدني) للتحقق من بياناته في المدرسة.</div>'+
+  '<div class="q">رقم هوية الطالب (السجل المدني) <span class="r">*</span></div><input type="tel" id="nid" class="big" inputmode="numeric" maxlength="12" autocomplete="off">'+
+  '<div class="row"><button class="bt" id="go">متابعة</button></div><div class="er" id="er">'+(err?esc(err):'')+'</div></div>';
+  var go=document.getElementById('go'),n=document.getElementById('nid');n.onkeydown=function(e){if(e.key==='Enter')go.click()};
+  go.onclick=function(){var v=dig(n.value).replace(/\D/g,'');if(v.length<8){document.getElementById('er').textContent='أدخل رقم الهوية كاملًا.';return}go.disabled=true;go.textContent='جارٍ التحقق…';
+    run('pfFind',[FID,v],function(r){if(r.found){S.tok=r.tok;S.who=r;whoCard()}else if(r.notTarget)idForm('هذه الاستمارة ليست لصف هذا الطالب.');else if(r.manual)manForm(v);else idForm('لم نجد هذا الرقم في بيانات المدرسة. تأكد منه أو تواصل مع المدرسة.')},function(m){idForm(m)})}}
+function whoCard(){var w=S.who;app.innerHTML='<div class="c"><h2>بيانات الطالب</h2><div class="ok"><div class="stu">الطالب: <b>'+esc(w.n)+'</b></div><div>'+esc(w.cls)+'</div></div>'+
+  (w.done?'<div class="note">سبق إرسال الاستمارة لهذا الطالب، وإرسالها مرة أخرى يحدّث البيانات.</div>':'')+
+  '<div class="row"><button class="bt" id="go">متابعة تعبئة الاستمارة</button><button class="bt sec" id="bk">تغيير الرقم</button></div></div>';
+  document.getElementById('go').onclick=function(){S.pg=0;page()};document.getElementById('bk').onclick=function(){idForm('')}}
+function manForm(nid,nm){var gs=(F.g&&F.g.length?F.g:[1,2,3,4,5,6]),o=S.man||{};S.tok='';S.who=null;
+  app.innerHTML='<div class="c"><h2>بيانات الطالب</h2>'+(nm?'<div class="hint">اكتب اسم الطالب رباعيًا كما هو في شهادته، ثم اختر صفه واكتب رقم فصله.</div>':'<div class="note">لم نجد هذا الرقم في بيانات المدرسة. تأكد منه، أو أكمل بإدخال بيانات الطالب.</div>')+
+  '<div class="q">اسم الطالب الرباعي <span class="r">*</span></div><input type="text" id="mn" autocomplete="off" value="'+esc(o.n||'')+'"><div class="q">الصف <span class="r">*</span></div><select id="mg"><option value="">اختر الصف</option>'+gs.map(function(g){return '<option value="'+g+'"'+(o.g===g?' selected':'')+'>'+G[g-1]+'</option>'}).join('')+'</select>'+
+  '<div class="q">الفصل <span class="r">*</span></div><input type="tel" id="mc" inputmode="numeric" maxlength="2" placeholder="مثال: 1" value="'+esc(o.c||'')+'">'+
+  (nm?'<div class="q">رقم هوية الطالب (اختياري)</div><div class="hint">إن كان لديك رقم الهوية أو الإقامة فاكتبه، وإلا فاتركه فارغًا.</div><input type="tel" id="mi" class="big" inputmode="numeric" maxlength="12" autocomplete="off" value="'+esc(o.nid||'')+'">':'')+
+  '<div class="row"><button class="bt" id="go">متابعة</button>'+(nm?'':'<button class="bt sec" id="bk">رجوع</button>')+'</div><div class="er" id="er"></div></div>';
+  if(!nm)document.getElementById('bk').onclick=function(){idForm('')};
+  document.getElementById('go').onclick=function(){var n=document.getElementById('mn').value.replace(/\s+/g,' ').trim(),g=+document.getElementById('mg').value,c=+dig(document.getElementById('mc').value).replace(/\D/g,''),mi=document.getElementById('mi'),id=mi?dig(mi.value).replace(/\D/g,''):nid;
+    if(n.split(' ').length<3||!g||!c){document.getElementById('er').textContent='أكمل اسم الطالب (ثلاثيًا على الأقل) والصف والفصل.';return}
+    if(mi&&id&&(id.length<8||id.length>12)){document.getElementById('er').textContent='رقم الهوية غير مكتمل. صحّحه أو اتركه فارغًا.';return}
+    S.man={n:n,g:g,c:c,nid:id||''};S.pg=0;page()}}
+function fld(q){var v=S.ans[q.k],req=q.req?' <span class="r">*</span>':'',h='<div class="fq" data-q="'+q.k+'"><div class="q">'+esc(q.l)+req+'</div>'+(q.hint?'<div class="hint">'+esc(q.hint)+'</div>':'');
+  if(q.t==='text'||q.t==='phone'||q.t==='num'||q.t==='date')h+='<input type="'+(q.t==='date'?'date':q.t==='text'?'text':'tel')+'" data-k="'+q.k+'"'+(q.t==='phone'||q.t==='num'?' inputmode="numeric" dir="ltr" style="text-align:right"':'')+' value="'+esc(v||'')+'">';
+  else if(q.t==='long')h+='<textarea data-k="'+q.k+'">'+esc(v||'')+'</textarea>';
+  else if(q.t==='sel')h+='<select data-k="'+q.k+'"><option value="">اختر</option>'+(q.opts||[]).map(function(o){return '<option'+(v===o?' selected':'')+'>'+esc(o)+'</option>'}).join('')+'</select>';
+  else if(q.t==='radio'||q.t==='yesno')h+=(q.t==='yesno'?['نعم','لا']:(q.opts||[])).map(function(o){return '<label class="opt'+(v===o?' on':'')+'"><input type="radio" name="r_'+q.k+'" data-k="'+q.k+'" value="'+esc(o)+'"'+(v===o?' checked':'')+'>'+esc(o)+'</label>'}).join('');
+  else if(q.t==='multi'){var a=Array.isArray(v)?v:[],oth=a.filter(function(x){return /^(غير ذلك|أخرى):/.test(x)})[0];
+    h+=(q.opts||[]).map(function(o){var on=a.indexOf(o)>=0||(oth&&oth.indexOf(o+':')===0);return '<label class="opt'+(on?' on':'')+'"><input type="checkbox" data-m="'+q.k+'" value="'+esc(o)+'"'+(on?' checked':'')+'>'+esc(o)+'</label>'+((o==='غير ذلك'||o==='أخرى')&&on?'<input type="text" data-o="'+q.k+'" data-ov="'+esc(o)+'" placeholder="حدّد" value="'+esc(oth?oth.slice(oth.indexOf(':')+1).trim():'')+'">':'')}).join('')}
+  else if(q.t==='file'){var f=S.files[q.k];h+='<label class="fl">'+(f?'✓ '+esc(f.n)+' — اضغط للتغيير':'اضغط لاختيار صورة أو ملف PDF')+'<input type="file" accept="image/*,application/pdf" data-f="'+q.k+'"></label>'}
+  else if(q.t==='agree'){var t=(q.opts&&q.opts[0])||'أوافق';h+='<label class="opt'+(v?' on':'')+'"><input type="checkbox" data-a="'+q.k+'"'+(v?' checked':'')+'>'+esc(t)+'</label>'}
+  return h+'</div>'}
+function page(){var p=P[S.pg],n=P.length,w=S.who?S.who.n:(S.man?S.man.n:'');
+  app.innerHTML='<div class="c"><div class="pg">صفحة '+(S.pg+1)+' من '+n+' · الطالب: '+esc(w)+'</div><div class="bar"><i style="width:'+Math.round((S.pg+1)*100/n)+'%"></i></div>'+(p.t?'<h2 style="margin-top:10px">'+esc(p.t)+'</h2>':'')+
+   p.f.filter(vis).map(fld).join('')+'<div class="er" id="er"></div><div class="row">'+(S.pg>0?'<button class="bt sec" id="pv">السابق</button>':'<button class="bt sec" id="pv">'+(byName()?'بيانات الطالب':'تغيير الطالب')+'</button>')+'<button class="bt" id="nx">'+(S.pg<n-1?'التالي':'إرسال الاستمارة')+'</button></div></div>';
+  window.scrollTo(0,0);bind(p)}
+function save(){[].forEach.call(app.querySelectorAll('[data-k]'),function(e){if(e.type==='radio'){if(e.checked)S.ans[e.dataset.k]=e.value}else S.ans[e.dataset.k]=e.value.trim()});
+  var M={};[].forEach.call(app.querySelectorAll('[data-m]'),function(e){M[e.dataset.m]=M[e.dataset.m]||[];if(e.checked){var o=app.querySelector('[data-o="'+e.dataset.m+'"][data-ov="'+e.value+'"]');M[e.dataset.m].push(o&&o.value.trim()?e.value+': '+o.value.trim():e.value)}});Object.keys(M).forEach(function(k){S.ans[k]=M[k]});
+  [].forEach.call(app.querySelectorAll('[data-a]'),function(e){S.ans[e.dataset.a]=e.checked?'نعم':''})}
+function bind(p){[].forEach.call(app.querySelectorAll('input[type=radio],input[type=checkbox],select'),function(e){e.onchange=function(){save();var sc=window.scrollY;page();window.scrollTo(0,sc)}});
+  [].forEach.call(app.querySelectorAll('[data-f]'),function(e){e.onchange=function(){var f=e.files[0];if(!f)return;if(f.size>15*1048576){alert('حجم الملف كبير جدًا (الحد 15 ميجابايت).');return}
+    var lab=e.parentNode;lab.firstChild.textContent='جارٍ تجهيز الملف…';prep(f,function(o){if(o.size>6*1048576){alert('حجم الملف أكبر من 6 ميجابايت. صوّر المستند بدقة أقل أو أرسله PDF مضغوطًا.');lab.firstChild.textContent='اضغط لاختيار صورة أو ملف PDF';return}save();S.files[e.dataset.f]=o;var sc=window.scrollY;page();window.scrollTo(0,sc)})}});
+  document.getElementById('pv').onclick=function(){save();if(S.pg>0){S.pg--;page()}else if(byName())manForm('',1);else idForm('')};
+  document.getElementById('nx').onclick=function(){save();var bad=check(p);if(bad){document.getElementById('er').textContent=bad;var el=app.querySelector('.inv');if(el)el.scrollIntoView({block:'center',behavior:'smooth'});return}
+    if(S.pg<P.length-1){S.pg++;page()}else send()}}
+function check(p){var msg='';[].forEach.call(app.querySelectorAll('.inv'),function(e){e.classList.remove('inv')});
+  p.f.filter(vis).forEach(function(q){var v=q.t==='file'?S.files[q.k]:S.ans[q.k],empty=Array.isArray(v)?!v.length:!v,box=app.querySelector('[data-q="'+q.k+'"]');
+    if(q.req&&empty){if(!msg)msg='أكمل الحقول المطلوبة المميزة باللون الأحمر.';if(box)box.classList.add('inv');return}
+    if(!empty&&q.t==='phone'){var d=dig(v).replace(/\D/g,'');if(!/^(05\d{8}|5\d{8}|9665\d{8})$/.test(d)){if(!msg)msg='رقم الجوال غير صحيح: «'+q.l+'». اكتبه بصيغة 05xxxxxxxx.';if(box)box.classList.add('inv')}}
+    if(!empty&&q.t==='num'&&!/^\d{1,4}$/.test(dig(v))){if(!msg)msg='اكتب رقمًا صحيحًا: «'+q.l+'».';if(box)box.classList.add('inv')}});return msg}
+function prep(f,cb){var rd=new FileReader();rd.onload=function(){var b64=String(rd.result).split(',')[1]||'';
+  if(!/^image\//.test(f.type)||f.size<900000||/gif|svg/.test(f.type)){cb({n:f.name,m:f.type||'application/octet-stream',b64:b64,size:f.size});return}
+  var im=new Image();im.onload=function(){var k=Math.min(1,1800/Math.max(im.width,im.height)),cv=document.createElement('canvas');cv.width=Math.round(im.width*k);cv.height=Math.round(im.height*k);cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);
+    var u=cv.toDataURL('image/jpeg',.82),d=u.split(',')[1];cb({n:f.name.replace(/\.[^.]+$/,'')+'.jpg',m:'image/jpeg',b64:d,size:Math.round(d.length*.75)})};im.onerror=function(){cb({n:f.name,m:f.type,b64:b64,size:f.size})};im.src=rd.result};rd.readAsDataURL(f)}
+function send(){var bt=document.getElementById('nx');bt.disabled=true;bt.textContent='جارٍ الإرسال…';var fl={};
+  (F.fields||[]).forEach(function(q){if(q.t==='file'&&S.files[q.k]&&vis(q))fl[q.k]={n:S.files[q.k].n,m:S.files[q.k].m,b64:S.files[q.k].b64}});
+  var A={};(F.fields||[]).forEach(function(q){if(q.t!=='sec'&&q.t!=='file'&&vis(q)&&S.ans[q.k]!=null)A[q.k]=S.ans[q.k]});
+  var mm=S.tok?null:Object.assign({},S.man,{cid:S.cid||(S.cid=Date.now().toString(36)+Math.random().toString(36).slice(2,10))});run('pfSubmit',[FID,S.tok,mm,A,fl],function(r){app.innerHTML='<div class="c"><h2>تم الإرسال بنجاح</h2><div class="ok">'+(r.upd?'حُدِّثت بيانات الطالب في الاستمارة. ':'وصلت الاستمارة إلى المدرسة. ')+'شكرًا لتعاونكم.</div><div class="row"><button class="bt sec" id="ag">تعبئة الاستمارة لطالب آخر</button></div></div>';
+    S={tok:'',who:null,man:null,ans:{},files:{},pg:0};document.getElementById('ag').onclick=start;window.scrollTo(0,0)},
+    function(m){bt.disabled=false;bt.textContent='إرسال الاستمارة';document.getElementById('er').textContent=m;if(/انتهت مهلة/.test(m))setTimeout(function(){idForm(m)},1800)},2)}
+boot();
+</script></body></html>
