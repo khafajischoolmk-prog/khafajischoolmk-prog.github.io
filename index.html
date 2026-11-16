@@ -516,6 +516,23 @@ html{background:var(--bg)}body{background:linear-gradient(180deg,#fff 0,#f2f8f6 
 .empty.em2{display:grid;justify-items:center;gap:8px;line-height:1.7}
 .empty.em2::before{content:"";width:48px;height:48px;border-radius:15px;background:rgba(11,107,92,.09) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230b6b5c' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 13l2.5-7h11L20 13'/%3E%3Cpath d='M4 13v5h16v-5h-5l-1 2h-4l-1-2z'/%3E%3C/svg%3E") center/26px no-repeat}
 .empty.em2 small{display:block;font-size:.82rem;opacity:.85}.empty.em2 .btn{margin-top:2px}
+
+/* v195: تعليم الإشعار كمقروء دون فتحه */
+.ntfc{position:relative;min-width:0;display:flex}
+.ntfc .ntfi{padding-inline-end:12px}
+.ntfc .ntfx b{padding-inline-end:78px}
+.ntfrd{position:absolute;top:8px;inset-inline-end:8px;z-index:1;display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);background:var(--surface);color:var(--muted);font:inherit;font-size:.74rem;font-weight:800;border-radius:999px;padding:4px 10px;cursor:pointer}
+.ntfrd:hover{color:#0b6b5c;border-color:#0b6b5c}
+.ntfall2{background:var(--surface)}
+@media (max-width:980px){.ntf:not(.open) .ntfc:nth-child(n+3){display:none}}
+@media (max-width:600px){.ntfh{flex-wrap:wrap}.ntfbt{width:100%;justify-content:flex-start}}
+/* v195: رسالة التنبيه أسفل الشاشة أوضح: إطار ملوّن وأيقونة وظل */
+.toast{display:flex!important;align-items:center;gap:12px;border:2px solid currentColor!important;border-inline-start-width:8px!important;font-weight:800!important;font-size:1rem;line-height:1.6;padding:14px 18px!important;border-radius:14px!important;box-shadow:0 14px 34px rgba(0,0,0,.3),0 0 0 4px var(--bg)!important;animation:tIn .25s ease-out}
+.toast[hidden]{display:none!important}
+.toast::before{content:"✓";flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;font-size:1rem;background:#1d7a4c}
+.toast.red::before{content:"!";background:#b0322a}.toast.amber::before{content:"!";background:#a96a00}.toast.blue::before{content:"i";background:#2559a8}
+body.bb .toast{bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+@keyframes tIn{from{transform:translateY(14px);opacity:0}to{transform:none;opacity:1}}
 </style>
 <style>
 /* attendance list */
@@ -796,7 +813,7 @@ body.dr-open .drawer{visibility:visible;transition:transform .22s ease,visibilit
 "use strict";
 const TOKEN=(new URLSearchParams(location.search).get("t")||"").replace(/[^A-Za-z0-9_-]/g,"");
 const APP_URL=(location.origin+location.pathname.replace(/index\.html$/,""));
-const ASSET_VER="53f65d952961|admjs:194a0002,sgjs:60141953,nfjs:290a74b6,grjs:3fb6c790,tbjs:48493fe4,exjs:160c2233,qbjs:461136c4,ac_aAtt:ab653853,ac_aRoster:f2199d10,ac_aSheets:1c88dba1,ac_aCalendar:f4fb7941,ac_aSettings:ff147778,ac_aAbsReport:f943260d,ac_aWorksReports:732678fc,ac_aAudit:4b9da757,ac_aLinks:4c8d0daa,ac_aDuty:60714dcb,ac_aContacts:ab94397c,ac_aParents:d9ee3fbd,ac_aAccounts:00144cb3,ac_aEvidence:6950bed9,ac_aEvAll:d800e7c0,ac_aSupWorks:255b2876,ac_aTT:99ea06ea,ac_aVq:164ffad2,ac_aStaff:749dfc6f,ac_aStuAbsRep:9e837f43,ac_aTchAbsRep:aa2cbf40,ac_aWeekSum:194b0002,ac_aDataQuality:8905602d,ac_aLateRep:b3ac4934,ac_aAbsFilter:882bf26b,ac_aAbsStats:fca81f78,ac_aAbsImport:bafb4bf6,ac_aCirc:ba3a2987,ac_aAssign:4ac2f94a,ac_aResults:a43a7854,ac_aDash:9b65068a,ac_aRepeat:56402c72,ac_aExams:3de234e1,ac_aLate:45032aef,ac_aLeave:6e9f8de0,ac_aVisits:ce178be2,ac_aWarn:c5f72e89,ac_aNoexc:f66da442,ac_aPForms:da8d2745,ac_aHealth:597b2f81,ac_aStuFile:194b0001,ac_aPlans:f8ab8c46,ac_aCVisit:1668d1bc,ac_aMeet:d90ed5ec,ac_aActs:8b1fa865,ac_aKpi:4b9fb6f4,ac_aTermRep:adf9da81,ac_aSecLog:9907dfe4,ac_aMaint:2f0c7caf,ac_aSigSet:a0a685cb,ac_aBeh:51e55207,ac_aRefs:2c359ae5,ac_aNoorChk:acec9766,ac_aForms:385f1b2b,ac_aShSubs:0b6ce9c3,ac_aStuData:3bb03d83";
+const ASSET_VER="53f65d952961|admjs:194a0002,sgjs:60141953,nfjs:290a74b6,grjs:3fb6c790,tbjs:48493fe4,exjs:160c2233,qbjs:461136c4,ac_aAtt:ab653853,ac_aRoster:f2199d10,ac_aSheets:1c88dba1,ac_aCalendar:f4fb7941,ac_aSettings:ff147778,ac_aAbsReport:f943260d,ac_aWorksReports:732678fc,ac_aAudit:4b9da757,ac_aLinks:4c8d0daa,ac_aDuty:195c0001,ac_aContacts:ab94397c,ac_aParents:d9ee3fbd,ac_aAccounts:00144cb3,ac_aEvidence:6950bed9,ac_aEvAll:d800e7c0,ac_aSupWorks:255b2876,ac_aTT:99ea06ea,ac_aVq:164ffad2,ac_aStaff:749dfc6f,ac_aStuAbsRep:9e837f43,ac_aTchAbsRep:aa2cbf40,ac_aWeekSum:194b0002,ac_aDataQuality:8905602d,ac_aLateRep:b3ac4934,ac_aAbsFilter:882bf26b,ac_aAbsStats:fca81f78,ac_aAbsImport:bafb4bf6,ac_aCirc:ba3a2987,ac_aAssign:4ac2f94a,ac_aResults:a43a7854,ac_aDash:9b65068a,ac_aRepeat:56402c72,ac_aExams:3de234e1,ac_aLate:45032aef,ac_aLeave:6e9f8de0,ac_aVisits:ce178be2,ac_aWarn:c5f72e89,ac_aNoexc:f66da442,ac_aPForms:da8d2745,ac_aHealth:597b2f81,ac_aStuFile:195b0002,ac_aPlans:f8ab8c46,ac_aCVisit:1668d1bc,ac_aMeet:d90ed5ec,ac_aActs:8b1fa865,ac_aKpi:4b9fb6f4,ac_aTermRep:adf9da81,ac_aSecLog:9907dfe4,ac_aMaint:2f0c7caf,ac_aSigSet:a0a685cb,ac_aBeh:51e55207,ac_aRefs:2c359ae5,ac_aNoorChk:acec9766,ac_aForms:385f1b2b,ac_aShSubs:0b6ce9c3,ac_aStuData:3bb03d83";
 const AVK=(()=>{const o={};const p=String(ASSET_VER||"").split("|")[1];if(p)p.split(",").forEach(x=>{const i=x.indexOf(":");if(i>0)o[x.slice(0,i)]=x.slice(i+1)});return o})();const avOf=k=>AVK[k]||ASSET_VER;
 /* تخزين ملفات الواجهة في IndexedDB (مساحة أكبر من localStorage) مع الرجوع لـ localStorage */
 const ASSET_MEM={};let ASSET_DB=null;
@@ -1148,8 +1165,8 @@ function ntfPaint(){if(!NTF)return;const box=$("#ntfBar");const on=ntfOn();const
   box.innerHTML=`<section class="ntf${fold?" fold":NTF.open?" open":""}${L.length===3?" c3":""}" aria-label="الإشعارات"><div class="ntfh">
      <span class="ntfbg" aria-hidden="true">${uiI("bell",1.9)}<i>${L.length>99?"99+":L.length}</i></span>
      <div class="ntft"><b>الإشعارات والتنبيهات</b><small>${sum}</small>${fold&&L[0]?`<span class="ntfla">آخرها: ${esc(L[0].t)}</span>`:""}</div>
-     <div class="ntfbt">${fold?`<button type="button" class="ntftg ntfun" aria-expanded="false">إظهار الإشعارات${uiI("dn",2)}</button>`:`${L.length>2?`<button type="button" class="ntftg ntfall" aria-expanded="${NTF.open}">${NTF.open?"عرض أقل":`عرض الكل (${L.length})`}${uiI("dn",2)}</button>`:""}<button type="button" class="ntftg ntffd" title="طيّ الشريط، ويبقى عدد الإشعارات ظاهرًا حتى تُفتح أو تُعالج">طيّ${uiI("dn",2)}</button>`}</div></div>
-    ${fold?"":`<div class="ntfl">${show.map(x=>{const st=NTF_S[x.k]||["bell","#0f7a6d"];return `<button type="button" class="ntfi${x.act?" act":""}" data-ntf="${esc(x.id)}" style="--c:${st[1]}"><span class="ntfic" aria-hidden="true">${ntfI(st[0],1.9)}</span><span class="ntfx"><b>${esc(x.t)}</b>${x.d?`<small>${ntfD(x.d)}</small>`:""}<span class="ntfm">${x.act?`<em>يحتاج إجراء</em>`:""}<time>${esc(ntfAgo(x.at))}</time><span class="ntfgo">فتح ‹</span></span></span></button>`}).join("")}</div>
+     <div class="ntfbt">${fold?`<button type="button" class="ntftg ntfun" aria-expanded="false">إظهار الإشعارات${uiI("dn",2)}</button>`:`${L.length>2?`<button type="button" class="ntftg ntfall" aria-expanded="${NTF.open}">${NTF.open?"عرض أقل":`عرض الكل (${L.length})`}${uiI("dn",2)}</button>`:""}<button type="button" class="ntftg ntfall2" title="تعليم كل الإشعارات الظاهرة كمقروءة دون فتحها">✓ تعليم الكل كمقروء</button><button type="button" class="ntftg ntffd" title="طيّ الشريط، ويبقى عدد الإشعارات ظاهرًا حتى تُفتح أو تُعالج">طيّ${uiI("dn",2)}</button>`}</div></div>
+    ${fold?"":`<div class="ntfl">${show.map(x=>{const st=NTF_S[x.k]||["bell","#0f7a6d"];return `<div class="ntfc"><button type="button" class="ntfrd" data-rd="${esc(x.id)}" title="تعليم الإشعار كمقروء دون فتحه" aria-label="تعليم كمقروء: ${esc(x.t)}">✓ مقروء</button><button type="button" class="ntfi${x.act?" act":""}" data-ntf="${esc(x.id)}" style="--c:${st[1]}"><span class="ntfic" aria-hidden="true">${ntfI(st[0],1.9)}</span><span class="ntfx"><b>${esc(x.t)}</b>${x.d?`<small>${ntfD(x.d)}</small>`:""}<span class="ntfm">${x.act?`<em>يحتاج إجراء</em>`:""}<time>${esc(ntfAgo(x.at))}</time><span class="ntfgo">فتح ‹</span></span></span></button></div>`}).join("")}</div>
     <div class="ntff">يبقى الإشعار هنا حتى تفتحه أو يُعالَج. يمكنك طيّ الشريط ويبقى العدد ظاهرًا.</div>`}</section>`;
   const setFold=f=>{NTF.fold=f;try{LS.set("ntfFold",f?"1":"0")}catch(e){}if(f)NTF.open=false;ntfPaint()};
   const q=k=>box.querySelector(k);
@@ -1157,7 +1174,14 @@ function ntfPaint(){if(!NTF)return;const box=$("#ntfBar");const on=ntfOn();const
   if(q(".ntffd"))q(".ntffd").onclick=()=>setFold(true);
   if(q(".ntfun"))q(".ntfun").onclick=e=>{e.stopPropagation();setFold(false)};
   if(fold)q(".ntfh").onclick=e=>{if(!e.target.closest("button"))setFold(false)};
-  box.querySelectorAll("[data-ntf]").forEach(b=>b.onclick=()=>ntfOpen(b.dataset.ntf))}
+  box.querySelectorAll("[data-ntf]").forEach(b=>b.onclick=()=>ntfOpen(b.dataset.ntf));
+  box.querySelectorAll("[data-rd]").forEach(b=>b.onclick=e=>{e.stopPropagation();ntfRead([b.dataset.rd])});
+  if(q(".ntfall2"))q(".ntfall2").onclick=()=>{const n=NTF.list.length;if(n>1&&!confirm(`تعليم ${n} إشعارات كمقروءة دون فتحها؟`))return;ntfRead(NTF.list.map(x=>x.id))}}
+/* v195: تعليم إشعار أو أكثر كمقروء دون فتحه (يعود الإشعار إذا تغيّر محتواه) */
+function ntfRead(ids){const set=new Set(ids),L=NTF.list.filter(x=>set.has(x.id));if(!L.length)return;
+  L.forEach(x=>{NTF.seen[x.id]=x.v});NTF.list=NTF.list.filter(x=>!set.has(x.id));if(NTF.list.length<=3)NTF.open=false;ntfPaint();
+  const items=L.map(x=>[x.id,x.v]);for(let i=0;i<items.length;i+=80){const part=items.slice(i,i+80);(S.role==="admin"?api("ntfSeenA",S.sid,part):api("ntfSeenT",auth(),part)).catch(()=>{})}
+  toast(L.length>1?`عُلِّمت ${L.length} إشعارات كمقروءة.`:"عُلِّم الإشعار كمقروء.")}
 function ntfOpen(id){const x=NTF.list.find(y=>y.id===id);if(!x)return;NTF.seen[x.id]=x.v;NTF.list=NTF.list.filter(y=>y.id!==id);if(NTF.list.length<=3)NTF.open=false;
   (S.role==="admin"?api("ntfSeenA",S.sid,[[x.id,x.v]]):api("ntfSeenT",auth(),[[x.id,x.v]])).catch(()=>{});
   const g=x.go||{};
