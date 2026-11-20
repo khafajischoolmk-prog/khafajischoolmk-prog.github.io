@@ -903,7 +903,7 @@ body.dr-open .drawer{visibility:visible;transition:transform .22s ease,visibilit
 "use strict";
 const TOKEN=(new URLSearchParams(location.search).get("t")||"").replace(/[^A-Za-z0-9_-]/g,"");
 const APP_URL=(location.origin+location.pathname.replace(/index\.html$/,""));
-const ASSET_VER="53f65d952961|admjs:2133119a,sgjs:2132ebb2,nfjs:213cc279,grjs:2130798f,tbjs:213694f3,exjs:213e1ab4,qbjs:461136c4,ac_aAtt:ab653853,ac_aRoster:f2199d10,ac_aSheets:1c88dba1,ac_aCalendar:f4fb7941,ac_aSettings:209s0001,ac_aAbsReport:2150051b,ac_aWorksReports:213ae905,ac_aAudit:213fb508,ac_aLinks:4c8d0daa,ac_aDuty:2141076b,ac_aContacts:213081fc,ac_aParents:2134adfd,ac_aAccounts:21372e51,ac_aEvidence:6950bed9,ac_aEvAll:d800e7c0,ac_aSupWorks:255b2876,ac_aTT:202g0001,ac_aVq:164ffad2,ac_aStaff:749dfc6f,ac_aStuAbsRep:9e837f43,ac_aTchAbsRep:aa2cbf40,ac_aWeekSum:194b0002,ac_aDataQuality:8905602d,ac_aLateRep:b3ac4934,ac_aAbsFilter:882bf26b,ac_aAbsStats:fca81f78,ac_aAbsImport:bafb4bf6,ac_aCirc:ba3a2987,ac_aAssign:213fb7d6,ac_aResults:212e0001,ac_aDash:9b65068a,ac_aRepeat:56402c72,ac_aExams:3de234e1,ac_aLate:45032aef,ac_aLeave:6e9f8de0,ac_aVisits:ce178be2,ac_aWarn:c5f72e89,ac_aNoexc:f66da442,ac_aPForms:206p0001,ac_aHealth:597b2f81,ac_aStuFile:210b0001,ac_aPlans:f8ab8c46,ac_aCVisit:1668d1bc,ac_aMeet:d90ed5ec,ac_aActs:8b1fa865,ac_aKpi:4b9fb6f4,ac_aTermRep:adf9da81,ac_aSecLog:9907dfe4,ac_aMaint:2f0c7caf,ac_aSigSet:a0a685cb,ac_aBeh:211h0001,ac_aRefs:2c359ae5,ac_aNoorChk:acec9766,ac_aForms:21396d6f,ac_aShSubs:213c61a8,ac_aStuData:3bb03d83";
+const ASSET_VER="53f65d952961|admjs:217ed06c,sgjs:2132ebb2,nfjs:213cc279,grjs:2130798f,tbjs:213694f3,exjs:213e1ab4,qbjs:461136c4,ac_aAtt:ab653853,ac_aRoster:f2199d10,ac_aSheets:1c88dba1,ac_aCalendar:f4fb7941,ac_aSettings:209s0001,ac_aAbsReport:2150051b,ac_aWorksReports:213ae905,ac_aAudit:213fb508,ac_aLinks:4c8d0daa,ac_aDuty:2141076b,ac_aContacts:213081fc,ac_aParents:2134adfd,ac_aAccounts:21372e51,ac_aEvidence:6950bed9,ac_aEvAll:d800e7c0,ac_aSupWorks:255b2876,ac_aTT:202g0001,ac_aVq:164ffad2,ac_aStaff:749dfc6f,ac_aStuAbsRep:9e837f43,ac_aTchAbsRep:aa2cbf40,ac_aWeekSum:194b0002,ac_aDataQuality:8905602d,ac_aLateRep:b3ac4934,ac_aAbsFilter:882bf26b,ac_aAbsStats:fca81f78,ac_aAbsImport:bafb4bf6,ac_aCirc:ba3a2987,ac_aAssign:213fb7d6,ac_aResults:217e0001,ac_aDash:21750c2f,ac_aRepeat:56402c72,ac_aExams:3de234e1,ac_aLate:45032aef,ac_aLeave:6e9f8de0,ac_aVisits:217ef2ad,ac_aWarn:217cdb60,ac_aNoexc:2171d41f,ac_aPForms:206p0001,ac_aHealth:597b2f81,ac_aStuFile:217ba1f2,ac_aPlans:21764159,ac_aCVisit:1668d1bc,ac_aMeet:d90ed5ec,ac_aActs:8b1fa865,ac_aKpi:4b9fb6f4,ac_aTermRep:adf9da81,ac_aSecLog:9907dfe4,ac_aMaint:2f0c7caf,ac_aSigSet:a0a685cb,ac_aBeh:2171e3fe,ac_aRefs:21794c2c,ac_aNoorChk:acec9766,ac_aForms:21396d6f,ac_aShSubs:213c61a8,ac_aStuData:3bb03d83";
 const AVK=(()=>{const o={};const p=String(ASSET_VER||"").split("|")[1];if(p)p.split(",").forEach(x=>{const i=x.indexOf(":");if(i>0)o[x.slice(0,i)]=x.slice(i+1)});return o})();const avOf=k=>AVK[k]||ASSET_VER;
 /* تخزين ملفات الواجهة في IndexedDB (مساحة أكبر من localStorage) مع الرجوع لـ localStorage */
 const ASSET_MEM={};let ASSET_DB=null;
@@ -941,7 +941,12 @@ function rpcCall(fn,args){return fetch(window.__RPC,{method:"POST",headers:{"Con
 
 /* v127: عند انتهاء الجلسة (6 ساعات) مع «تذكّر دخولي» تُفتح جلسة جديدة تلقائيًا ويُعاد الطلب */
 const RNW={p:null,m:{}};
-function api(fn,...args){if(SIDW.p&&args.some(a=>a===SIDW.ph||(a&&typeof a==="object"&&a.sid===SIDW.ph)))return SIDW.p.then(()=>api(fn,...args.map(a=>a===SIDW.ph?S.sid:(a&&typeof a==="object"&&a.sid===SIDW.ph?Object.assign({},a,{sid:S.sid}):a))));return api0(fn,...args).catch(e=>{
+/* v217: عرض فوري من آخر بيانات محفوظة على الجهاز (لليوم نفسه) ثم التحديث من الخادم */
+function swrClear(){try{Object.keys(localStorage).filter(k=>k.startsWith("swr:")).forEach(k=>localStorage.removeItem(k))}catch(e){}}
+function apiS(fn,...args){const k="swr:"+((S.me&&S.me.user)||"")+":"+todayStr()+":"+fn+":"+JSON.stringify(args.slice(1));let c=null;try{c=JSON.parse(localStorage.getItem(k)||"null")}catch(e){}
+  const fresh=()=>{const w=S._wc||0;return api(fn,...args).then(d=>(S._wc||0)!==w?api(fn,...args):d).then(d=>{try{const j=JSON.stringify({d});if(j.length<1.6e6)localStorage.setItem(k,j)}catch(e){swrClear()}return d})};
+  return{then(ok,err){if(!c||c.d==null)return fresh().then(ok,err);const p=Promise.resolve().then(()=>ok&&ok(c.d));return p.then(()=>fresh()).then(d=>{if(JSON.stringify(d)!==JSON.stringify(c.d))return ok&&ok(d)},e=>{try{toast("تعذّر تحديث البيانات: "+(e&&e.message||e),"amber",5000)}catch(x){}})}}}
+function api(fn,...args){if(!API_RT.test(fn)&&!/^(adminResultsHome|adminNrResList|adminNrResUrl|adminResultsList|adminResultsGet|siteAssetVer)$/.test(fn))S._wc=(S._wc||0)+1;if(SIDW.p&&args.some(a=>a===SIDW.ph||(a&&typeof a==="object"&&a.sid===SIDW.ph)))return SIDW.p.then(()=>api(fn,...args.map(a=>a===SIDW.ph?S.sid:(a&&typeof a==="object"&&a.sid===SIDW.ph?Object.assign({},a,{sid:S.sid}):a))));return api0(fn,...args).catch(e=>{
   if(["resumeLogin","resumeBoot","adminLogout","forgetLogin","adminLogin","staffCodeLogin"].includes(fn)||!/انتهت الجلسة/.test(e&&e.message||""))throw e;
   const rt=LS.get("rmt");if(!rt)throw e;
   const isS=a=>typeof a==="string"&&a.length>8&&(a===S.sid||!!RNW.m[a]);
@@ -1036,7 +1041,7 @@ function toast(msg,kind="ok",ms=4200){const t=$("#toast");t.textContent=msg;t.cl
 
 /* ---------- boot ---------- */
 /* v126: الخروج من الحساب فورًا دون إعادة تحميل الموقع (كان ينتظر الخادم ثم يعيد فتح الموقع كاملًا) */
-async function softOut(){const sid=S.sid;ADC.clear();try{SS.set("sid",null)}catch(e){}S.sid=null;if(sid)try{api("adminLogout",sid).catch(()=>{})}catch(e){}
+async function softOut(){const sid=S.sid;ADC.clear();swrClear();try{SS.set("sid",null)}catch(e){}S.sid=null;if(sid)try{api("adminLogout",sid).catch(()=>{})}catch(e){}
   try{sessionStorage.removeItem("wk");localStorage.removeItem("wk")}catch(e){}
   {const rt=LS.get("rmt");if(rt){rmtSet("");try{api0("forgetLogin",rt).catch(()=>{})}catch(e){}}}
   try{if(window.google&&google.script&&google.script.history)google.script.history.replace(null,{},"")}catch(e){}
