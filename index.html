@@ -897,7 +897,7 @@ body.dr-open .drawer{visibility:visible;transition:transform .22s ease,visibilit
 "use strict";
 const TOKEN=(new URLSearchParams(location.search).get("t")||"").replace(/[^A-Za-z0-9_-]/g,"");
 const APP_URL=(location.origin+location.pathname.replace(/index\.html$/,""));
-const ASSET_VER="53f65d952961|admjs:2133119a,sgjs:2132ebb2,nfjs:213cc279,grjs:2130798f,tbjs:213694f3,exjs:213e1ab4,qbjs:461136c4,ac_aAtt:ab653853,ac_aRoster:f2199d10,ac_aSheets:1c88dba1,ac_aCalendar:f4fb7941,ac_aSettings:209s0001,ac_aAbsReport:2132ff0f,ac_aWorksReports:213ae905,ac_aAudit:213fb508,ac_aLinks:4c8d0daa,ac_aDuty:2141076b,ac_aContacts:213081fc,ac_aParents:2134adfd,ac_aAccounts:21372e51,ac_aEvidence:6950bed9,ac_aEvAll:d800e7c0,ac_aSupWorks:255b2876,ac_aTT:202g0001,ac_aVq:164ffad2,ac_aStaff:749dfc6f,ac_aStuAbsRep:9e837f43,ac_aTchAbsRep:aa2cbf40,ac_aWeekSum:194b0002,ac_aDataQuality:8905602d,ac_aLateRep:b3ac4934,ac_aAbsFilter:882bf26b,ac_aAbsStats:fca81f78,ac_aAbsImport:bafb4bf6,ac_aCirc:ba3a2987,ac_aAssign:213fb7d6,ac_aResults:212e0001,ac_aDash:9b65068a,ac_aRepeat:56402c72,ac_aExams:3de234e1,ac_aLate:45032aef,ac_aLeave:6e9f8de0,ac_aVisits:ce178be2,ac_aWarn:c5f72e89,ac_aNoexc:f66da442,ac_aPForms:206p0001,ac_aHealth:597b2f81,ac_aStuFile:210b0001,ac_aPlans:f8ab8c46,ac_aCVisit:1668d1bc,ac_aMeet:d90ed5ec,ac_aActs:8b1fa865,ac_aKpi:4b9fb6f4,ac_aTermRep:adf9da81,ac_aSecLog:9907dfe4,ac_aMaint:2f0c7caf,ac_aSigSet:a0a685cb,ac_aBeh:211h0001,ac_aRefs:2c359ae5,ac_aNoorChk:acec9766,ac_aForms:21396d6f,ac_aShSubs:213c61a8,ac_aStuData:3bb03d83";
+const ASSET_VER="53f65d952961|admjs:2133119a,sgjs:2132ebb2,nfjs:213cc279,grjs:2130798f,tbjs:213694f3,exjs:213e1ab4,qbjs:461136c4,ac_aAtt:ab653853,ac_aRoster:f2199d10,ac_aSheets:1c88dba1,ac_aCalendar:f4fb7941,ac_aSettings:209s0001,ac_aAbsReport:2150051b,ac_aWorksReports:213ae905,ac_aAudit:213fb508,ac_aLinks:4c8d0daa,ac_aDuty:2141076b,ac_aContacts:213081fc,ac_aParents:2134adfd,ac_aAccounts:21372e51,ac_aEvidence:6950bed9,ac_aEvAll:d800e7c0,ac_aSupWorks:255b2876,ac_aTT:202g0001,ac_aVq:164ffad2,ac_aStaff:749dfc6f,ac_aStuAbsRep:9e837f43,ac_aTchAbsRep:aa2cbf40,ac_aWeekSum:194b0002,ac_aDataQuality:8905602d,ac_aLateRep:b3ac4934,ac_aAbsFilter:882bf26b,ac_aAbsStats:fca81f78,ac_aAbsImport:bafb4bf6,ac_aCirc:ba3a2987,ac_aAssign:213fb7d6,ac_aResults:212e0001,ac_aDash:9b65068a,ac_aRepeat:56402c72,ac_aExams:3de234e1,ac_aLate:45032aef,ac_aLeave:6e9f8de0,ac_aVisits:ce178be2,ac_aWarn:c5f72e89,ac_aNoexc:f66da442,ac_aPForms:206p0001,ac_aHealth:597b2f81,ac_aStuFile:210b0001,ac_aPlans:f8ab8c46,ac_aCVisit:1668d1bc,ac_aMeet:d90ed5ec,ac_aActs:8b1fa865,ac_aKpi:4b9fb6f4,ac_aTermRep:adf9da81,ac_aSecLog:9907dfe4,ac_aMaint:2f0c7caf,ac_aSigSet:a0a685cb,ac_aBeh:211h0001,ac_aRefs:2c359ae5,ac_aNoorChk:acec9766,ac_aForms:21396d6f,ac_aShSubs:213c61a8,ac_aStuData:3bb03d83";
 const AVK=(()=>{const o={};const p=String(ASSET_VER||"").split("|")[1];if(p)p.split(",").forEach(x=>{const i=x.indexOf(":");if(i>0)o[x.slice(0,i)]=x.slice(i+1)});return o})();const avOf=k=>AVK[k]||ASSET_VER;
 /* تخزين ملفات الواجهة في IndexedDB (مساحة أكبر من localStorage) مع الرجوع لـ localStorage */
 const ASSET_MEM={};let ASSET_DB=null;
@@ -1690,6 +1690,7 @@ function mountEditor(box,o){
   const lockNote=d=>{if(!tMode()||o.date!==todayStr())return "";const l=d&&d.lk;
     if(!d)return `<div class="hint">بعد الحفظ يمكنك تعديل التسجيل حتى نهاية اليوم الدراسي${attEndTxt()} دون طلب، ثم يُقفل ولا يُعدِّله إلا الإدارة.</div>`;
     if(!l)return "";
+    if(l.co&&canNow())return `<div class="note blue"><b>سجّل ${esc(l.ownerName||"")} غياب هذا الفصل ${tm(l.first)}.</b> إن وجدت غائبًا لم يُسجَّل أو طالبًا حاضرًا سُجّل غائبًا فعدّل القائمة ثم احفظ؛ يُحفظ تسجيلك في الفصل نفسه، ويظهر اسمك بجانب الطلاب الذين تضيفهم. المتبقي <b id="edLeft">${minsLeft()}</b> دقيقة.</div>`;
     if(canNow())return `<div class="note blue">${l.unlock?"سمحت لك الإدارة بالتعديل":`يمكنك تعديل التسجيل حتى نهاية اليوم الدراسي${l.endHm?" (الساعة "+esc(hmLabel(l.endHm))+")":""} دون طلب`} — المتبقي <b id="edLeft">${minsLeft()}</b> دقيقة. يُحفظ كل تعديل في سجل العمليات.</div>`;
     const why=l.can?"انتهى اليوم الدراسي، فأُقفل التعديل.":esc(l.why);const rq=l.req;if(l.mine&&!l.unlock)return `<div class="note amber"><b>التسجيل مقفل.</b> ${why} هذا هو التسجيل المحفوظ. لتصحيح خطأ تواصل مع الإدارة.</div>`;
     const reqUI=rq&&rq.st==="pend"?`<div class="hint">أُرسل طلبك ${tm(rq.at)}، وهو بانتظار موافقة الإدارة. اضغط «تحديث» لمعرفة الرد.</div>`:
@@ -1700,17 +1701,18 @@ function mountEditor(box,o){
   function draw(){
     const d=ed.doc;const lk=locked();
     if(ed.loading){box.innerHTML=`<div class="empty ld" role="status"><span class="ldl"><span></span></span><b>جارٍ تحميل تسجيل الفصل…</b></div>`;return}
-    const status=d?`<span class="chip ok">مسجّل ${tm(d.lk&&d.lk.first||d.at)} · ${esc(d.lk&&d.lk.ownerName||d.teacherName||"")}</span>${d.lk&&d.lk.edits?`<span class="chip gold" title="عدد التعديلات: ${d.lk.edits}">✎ عُدِّل ${tm(d.lk.last||d.at)}${d.lk.lastSrc==="admin"?" بواسطة الإدارة":""}${d.lk.edits===2?" (مرتان)":d.lk.edits>2?` (${d.lk.edits} مرات)`:""}</span>`:""}`:`<span class="chip amber">لم يُسجَّل بعد</span>`;
+    const status=d?`<span class="chip ok">مسجّل ${tm(d.lk&&d.lk.first||d.at)} · ${esc(d.hist&&d.hist.tch&&d.hist.tch.length>1?d.hist.tch.join(" + "):(d.lk&&d.lk.ownerName||d.teacherName||""))}</span>${d.lk&&d.lk.edits?`<span class="chip gold" title="عدد التعديلات: ${d.lk.edits}">✎ عُدِّل ${tm(d.lk.last||d.at)}${d.lk.lastSrc==="admin"?" بواسطة الإدارة":""}${d.lk.edits===2?" (مرتان)":d.lk.edits>2?` (${d.lk.edits} مرات)`:""}</span>`:""}`:`<span class="chip amber">لم يُسجَّل بعد</span>`;
     const shown=list.filter(s=>!ed.q||s.n.includes(ed.q));
     const abs=list.filter(s=>ed.absent.has(s.id));
-    const noT=ed.mode==="teacher"&&!o.teacherId;
+    const noT=ed.mode==="teacher"&&!o.teacherId;const H=d&&d.hist&&d.hist.tch&&d.hist.tch.length>1?d.hist:null;
     box.innerHTML=`<div style="display:grid;gap:12px">
       <div class="ph"><b>${classLong(o.g,o.c)} · ${list.length} طالبًا</b><span style="display:flex;gap:6px;align-items:center">${status}<button class="btn sm sec" id="edR">تحديث</button></span></div>
       ${lk&&tMode()&&o.date!==todayStr()?`<div class="note amber">التسجيل متاح لليوم الحالي فقط.</div>`:lockNote(d)}
       ${noT&&!lk?`<div class="note blue">اختر اسمك من القائمة قبل الحفظ.</div>`:""}
       <input id="edQ" type="search" placeholder="ابحث عن طالب" value="${esc(ed.q)}" aria-label="بحث">
       <div class="hint">اضغط على اسم الطالب لتحديده غائبًا، واضغط مرة أخرى لإلغاء التحديد.</div>
-      <div class="stus" id="edL">${shown.map(s=>`<button class="stu" data-id="${s.id}" aria-pressed="${ed.absent.has(s.id)}"${lk?" disabled":""}><span class="n">${esc(s.n)}</span><span class="s">${ed.absent.has(s.id)?"غائب":"حاضر"}</span></button>`).join("")||`<div class="empty">لا توجد نتائج.</div>`}</div>
+      <div class="stus" id="edL">${shown.map(s=>`<button class="stu" data-id="${s.id}" aria-pressed="${ed.absent.has(s.id)}"${lk?" disabled":""}><span class="n">${esc(s.n)}</span><span class="s">${ed.absent.has(s.id)?"غائب":"حاضر"}</span>${H&&H.by[s.id]&&d.absent.includes(s.id)?`<span class="s" style="font-size:.72rem;opacity:.85">سجّله: ${esc(H.by[s.id])}</span>`:""}</button>`).join("")||`<div class="empty">لا توجد نتائج.</div>`}</div>
+      ${H?`<div class="note gold" style="font-size:.88rem">⚑ سُجّل غياب هذا الفصل اليوم من أكثر من معلم: ${H.tch.map(esc).join(" ثم ")}.${H.rem.length?` أُلغي غياب: ${H.rem.map(x=>`${esc(x.n)} (${esc(x.by)})`).join("، ")}.`:""}</div>`:""}
       ${ed.confirming?`<div class="confirm"><b>${abs.length?`تأكيد الغياب (عدد الغائبين: ${abs.length})`:"تأكيد حضور جميع الطلاب"}</b>
          ${abs.length?`<ol>${abs.map(s=>`<li>${esc(s.n)}</li>`).join("")}</ol>`:""}
          <div class="btns"><button class="btn" id="edOk"${ed.busy?" disabled":""}>${ed.busy?"جارٍ الحفظ…":"تأكيد الحفظ"}</button><button class="btn sec" id="edNo">رجوع</button></div></div>`:
@@ -2307,10 +2309,13 @@ const cellText=v=>{if(v==null)return"";if(typeof v==="object"){if(v.richText)ret
 /* ---------- absence report data (from attendance rows) ---------- */
 function reportData(date,rows,snapAt){
   const T=snapAt==="now"?Infinity:tsAt(date,snapAt);
-  const last={},cnt={};rows.filter(r=>Date.parse(r.at)<=T).forEach(r=>{last[r.key]=r;cnt[r.key]=(cnt[r.key]||0)+1});
+  const last={},cnt={},hs={};rows.filter(r=>Date.parse(r.at)<=T).forEach(r=>{last[r.key]=r;cnt[r.key]=(cnt[r.key]||0)+1;
+    const h=hs[r.key]||(hs[r.key]={prev:null,by:{},rem:{},tch:[],nm:{}});const who=r.teacherName||(r.src==="admin"?"الإدارة":"");if(who&&!h.tch.includes(who))h.tch.push(who);
+    (r.absent||[]).forEach((id,i)=>{if(r.names&&r.names[i])h.nm[id]=r.names[i]});const cur=new Set(r.absent||[]);
+    cur.forEach(id=>{if(!h.prev||!h.prev.has(id)){h.by[id]=who;delete h.rem[id]}});if(h.prev)h.prev.forEach(id=>{if(!cur.has(id)){h.rem[id]={n:h.nm[id]||"",by:who};delete h.by[id]}});h.prev=cur});
   const keys=new Set(classes().map(c=>c.key));Object.keys(last).forEach(k=>keys.add(k));
   const items=[...keys].map(k=>{const[g,c]=k.split("-").map(Number);const e=last[k];
-    return{g,c,rec:!!e,names:e?[...(e.names||[])].sort(coll.compare):[],teacher:e?e.teacherName:"",at:e?e.at:null,edits:e?Math.max(0,(cnt[k]||1)-1):0,editAdm:!!(e&&e.src==="admin"&&(cnt[k]||1)>1)}}).sort((a,b)=>a.g-b.g||a.c-b.c);
+    return{g,c,rec:!!e,names:e?[...(e.names||[])].sort(coll.compare):[],teacher:e?e.teacherName:"",at:e?e.at:null,edits:e?Math.max(0,(cnt[k]||1)-1):0,editAdm:!!(e&&e.src==="admin"&&(cnt[k]||1)>1),co:e&&hs[k]&&hs[k].tch.length>1?{tch:hs[k].tch,byN:Object.fromEntries((e.absent||[]).map((id,i)=>[(e.names||[])[i],hs[k].by[id]])),rem:Object.values(hs[k].rem)}:null}}).sort((a,b)=>a.g-b.g||a.c-b.c);
   const issued=snapAt==="now"?new Date().toISOString():new Date(T).toISOString();
   return{date,snapAt,items,issued,absent:items.reduce((a,x)=>a+x.names.length,0),rec:items.filter(x=>x.rec).length,unrec:items.filter(x=>!x.rec).length}
 }
