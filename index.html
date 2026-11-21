@@ -623,6 +623,28 @@ input[type=date]::-webkit-datetime-edit,input[type=time]::-webkit-datetime-edit{
 html,body{overflow-x:clip}
 .ph>*{min-width:0}.ph .chip{white-space:normal;max-width:100%}
 .stus .stu{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px}.stus .stu .n{flex:1 1 60%;overflow-wrap:anywhere}.stus .stu .s+.s{flex-basis:100%;text-align:start}
+
+/* v219: بطاقات المجموعات (الفكرة 2) */
+.cg2w{gap:16px}
+.cg.cg2{min-height:0;padding:20px 12px 16px;gap:4px;border-radius:20px}
+.cg.cg2 .gsq{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;margin-bottom:8px;color:#fff;background:linear-gradient(145deg,color-mix(in srgb,var(--c) 82%,#fff),var(--c));box-shadow:0 8px 16px color-mix(in srgb,var(--c) 32%,transparent);transition:transform .2s}
+.cg.cg2 .gsq svg{width:32px;height:32px;margin:0;color:#fff}
+.cg.cg2:hover .gsq{transform:scale(1.06)}
+.cg.cg2 b{font-size:1.06rem}
+.cg.cg2 .gtag{display:inline-block;margin-top:7px;padding:3px 11px;border-radius:999px;font-size:.78rem;font-weight:500;background:#fff;color:#5b7a73;border:1px solid #dfe8e5;white-space:nowrap}
+.cg.cg2 .gtag.on{font-weight:800;color:var(--c);border-color:color-mix(in srgb,var(--c) 38%,#fff)}
+.cg.cg2 .bdg{display:none}
+.cg.cg2[aria-current="true"]{background:linear-gradient(160deg,#fff,color-mix(in srgb,var(--c) 10%,#fff));color:var(--ink);transform:translateY(-4px);outline:3px solid var(--ui-g2,#0b6b5c);outline-offset:-3px;box-shadow:0 14px 26px rgba(10,94,81,.18)}
+.cg.cg2[aria-current="true"] small{color:#3f5d57}
+@media (max-width:700px){.cg.cg2{padding:14px 8px 12px}.cg.cg2 .gsq{width:50px;height:50px;border-radius:15px}.cg.cg2 .gsq svg{width:26px;height:26px}.cg.cg2 b{font-size:.92rem}.cg.cg2 small{display:none}.cg.cg2 .gtag{font-size:.7rem;padding:2px 8px;white-space:normal}}
+
+/* v219: تخطيط مهامي اليوم */
+.mt-g{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:12px;align-items:stretch}
+.mt-g.nc{grid-template-columns:1fr}
+.mt-g .mt-l{flex-direction:column;align-items:stretch;flex-wrap:nowrap}
+.mt-g .mt-i{width:100%;justify-content:flex-start;text-align:start}
+.mt-c{display:flex}.mt-c .kp-c{margin:0;flex:1;display:flex;flex-direction:column;gap:6px}.mt-c .kp-g svg{flex:1;height:auto;min-height:64px}
+@media (max-width:700px){.mt-g{grid-template-columns:1fr}.mt-c .kp-g svg{flex:none;height:80px}}
 </style>
 <style>
 /* attendance list */
@@ -903,7 +925,7 @@ body.dr-open .drawer{visibility:visible;transition:transform .22s ease,visibilit
 "use strict";
 const TOKEN=(new URLSearchParams(location.search).get("t")||"").replace(/[^A-Za-z0-9_-]/g,"");
 const APP_URL=(location.origin+location.pathname.replace(/index\.html$/,""));
-const ASSET_VER="53f65d952961|admjs:2184591e,sgjs:2132ebb2,nfjs:213cc279,grjs:2130798f,tbjs:213694f3,exjs:213e1ab4,qbjs:461136c4,ac_aRecStat:21896358,ac_aPerfEv:218f168c,ac_aAtt:ab653853,ac_aRoster:f2199d10,ac_aSheets:1c88dba1,ac_aCalendar:f4fb7941,ac_aSettings:209s0001,ac_aAbsReport:2150051b,ac_aWorksReports:213ae905,ac_aAudit:213fb508,ac_aLinks:4c8d0daa,ac_aDuty:2141076b,ac_aContacts:213081fc,ac_aParents:21849799,ac_aAccounts:21372e51,ac_aEvidence:6950bed9,ac_aEvAll:d800e7c0,ac_aSupWorks:255b2876,ac_aTT:202g0001,ac_aVq:164ffad2,ac_aStaff:749dfc6f,ac_aStuAbsRep:9e837f43,ac_aTchAbsRep:aa2cbf40,ac_aWeekSum:194b0002,ac_aDataQuality:8905602d,ac_aLateRep:b3ac4934,ac_aAbsFilter:882bf26b,ac_aAbsStats:fca81f78,ac_aAbsImport:bafb4bf6,ac_aCirc:ba3a2987,ac_aAssign:213fb7d6,ac_aResults:217e0001,ac_aDash:21750c2f,ac_aRepeat:56402c72,ac_aExams:3de234e1,ac_aLate:45032aef,ac_aLeave:6e9f8de0,ac_aVisits:217ef2ad,ac_aWarn:217cdb60,ac_aNoexc:2171d41f,ac_aPForms:206p0001,ac_aHealth:597b2f81,ac_aStuFile:217ba1f2,ac_aPlans:21764159,ac_aCVisit:1668d1bc,ac_aMeet:d90ed5ec,ac_aActs:8b1fa865,ac_aKpi:4b9fb6f4,ac_aTermRep:adf9da81,ac_aSecLog:9907dfe4,ac_aMaint:2f0c7caf,ac_aSigSet:a0a685cb,ac_aBeh:2171e3fe,ac_aRefs:21794c2c,ac_aNoorChk:acec9766,ac_aForms:2182c15f,ac_aShSubs:213c61a8,ac_aStuData:3bb03d83";
+const ASSET_VER="53f65d952961|admjs:219ce562,sgjs:2132ebb2,nfjs:213cc279,grjs:2130798f,tbjs:213694f3,exjs:213e1ab4,qbjs:461136c4,ac_aRecStat:21896358,ac_aPerfEv:218f168c,ac_aAtt:ab653853,ac_aRoster:f2199d10,ac_aSheets:1c88dba1,ac_aCalendar:f4fb7941,ac_aSettings:209s0001,ac_aAbsReport:2150051b,ac_aWorksReports:213ae905,ac_aAudit:213fb508,ac_aLinks:4c8d0daa,ac_aDuty:2141076b,ac_aContacts:213081fc,ac_aParents:21849799,ac_aAccounts:21372e51,ac_aEvidence:6950bed9,ac_aEvAll:d800e7c0,ac_aSupWorks:255b2876,ac_aTT:202g0001,ac_aVq:164ffad2,ac_aStaff:749dfc6f,ac_aStuAbsRep:9e837f43,ac_aTchAbsRep:aa2cbf40,ac_aWeekSum:194b0002,ac_aDataQuality:8905602d,ac_aLateRep:b3ac4934,ac_aAbsFilter:882bf26b,ac_aAbsStats:fca81f78,ac_aAbsImport:bafb4bf6,ac_aCirc:ba3a2987,ac_aAssign:213fb7d6,ac_aResults:217e0001,ac_aDash:21750c2f,ac_aRepeat:56402c72,ac_aExams:3de234e1,ac_aLate:45032aef,ac_aLeave:6e9f8de0,ac_aVisits:217ef2ad,ac_aWarn:217cdb60,ac_aNoexc:2171d41f,ac_aPForms:206p0001,ac_aHealth:597b2f81,ac_aStuFile:217ba1f2,ac_aPlans:21764159,ac_aCVisit:1668d1bc,ac_aMeet:d90ed5ec,ac_aActs:8b1fa865,ac_aKpi:4b9fb6f4,ac_aTermRep:adf9da81,ac_aSecLog:9907dfe4,ac_aMaint:2f0c7caf,ac_aSigSet:a0a685cb,ac_aBeh:2171e3fe,ac_aRefs:21794c2c,ac_aNoorChk:acec9766,ac_aForms:2182c15f,ac_aShSubs:213c61a8,ac_aStuData:3bb03d83";
 const AVK=(()=>{const o={};const p=String(ASSET_VER||"").split("|")[1];if(p)p.split(",").forEach(x=>{const i=x.indexOf(":");if(i>0)o[x.slice(0,i)]=x.slice(i+1)});return o})();const avOf=k=>AVK[k]||ASSET_VER;
 /* تخزين ملفات الواجهة في IndexedDB (مساحة أكبر من localStorage) مع الرجوع لـ localStorage */
 const ASSET_MEM={};let ASSET_DB=null;
@@ -1151,8 +1173,9 @@ function kpHTML(k){if(!k||!k.ser||!k.ser.length)return "";const L=k.ser,last=L[L
   const sv=L.map(x=>x[2]?x[1]/x[2]*100:0),mx=Math.max(4,...sv),W=300,H=58,bw=W/L.length;
   const bars=L.map((x,i)=>{const h=x[3]?Math.max(2,sv[i]/mx*(H-8)):0,X=W-(i+1)*bw+bw*.18,on=isT&&i===L.length-1;
     return `<rect x="${X.toFixed(1)}" y="${(H-h).toFixed(1)}" width="${(bw*.64).toFixed(1)}" height="${h.toFixed(1)}" rx="3" fill="${on?"#0b6b5c":"#9fc7bd"}"><title>${esc(dayName(x[0])+" "+hijri(x[0]))}: ${x[3]?f1(sv[i])+"٪ غياب":"لم يُسجَّل"}</title></rect>`}).join("");
-  cards.push(`<div class="kp-c kp-g"><span>نسبة الغياب آخر ${L.length} أيام دراسة</span><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="رسم الغياب">${bars}</svg></div>`);
-  return `<div class="kp">${cards.join("")}</div>`}
+  const chart=`<div class="kp-c kp-g"><span>نسبة الغياب آخر ${L.length} أيام دراسة</span><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="رسم الغياب">${bars}</svg></div>`;
+  if(kpHTML.split)return{cards:cards.length?`<div class="kp">${cards.join("")}</div>`:"",chart};
+  cards.push(chart);return `<div class="kp">${cards.join("")}</div>`}
 const MG=[["contacts","links","بيانات المعلمين","الرموز والروابط"],["vqt","vqft","استعلام عن معلم","فرز بيانات المعلمين"]];
 function mgApply(v){const ids=S._tabIds||new Set();MG.forEach(([a,b,la,lb])=>{if(!ids.has(a)||!ids.has(b))return;
   $$(`.subnav [data-at="${b}"]`,v).forEach(x=>x.style.display="none");
@@ -1192,8 +1215,9 @@ function mtItems(d){d=d||{};const ids=S._tabIds||new Set(),L=[];const add=(n,l,t
   add(d.unrec,"فصول لم يُسجَّل غيابها اليوم","dash",1);add(d.att,"طلبات تعديل الغياب","dash");add(d.ref,"إحالات جديدة للموجه الطلابي","refs",1);add(d.pf,"استجابات أولياء أمور تحتاج ربطًا","pforms");
   add(d.docs,"ملفات معلمين بانتظار المراجعة","docs");add(d.sh,"كشوف متابعة بانتظار المراجعة","shsubs");add((d.cv||0)+(d.cvRet||0),"زيارات صفية تحتاج إجراء","cvisit");return L}
 function mtHTML(){const d=S._bdg&&S._bdg.d,L=mtItems(d),sc=mtShort(),tl=k=>(ADMIN_TABS.find(t=>t[0]===k)||[k,k])[1],td=todayStr();
-  return `<section class="mt" aria-label="مهامي اليوم"><div class="mt-h"><b>مهامي اليوم</b><span class="hint" style="margin:0">${esc(dayName(td))} ${esc(hijri(td))}</span></div>${kpHTML(d&&d.kp)}
-   <div class="mt-l">${!d?`<span class="hint" style="margin:0">جارٍ التحقق من المهام…</span>`:L.length?L.map(x=>`<button type="button" class="mt-i${x.red?" r":""}" data-mt="${x.t}"><em>${x.n}</em>${esc(x.l)}</button>`).join(""):`<span class="mt-ok">✓ لا توجد مهام معلّقة الآن.</span>`}</div>
+  kpHTML.split=1;const K=kpHTML(d&&d.kp)||{cards:"",chart:""};kpHTML.split=0;
+  return `<section class="mt" aria-label="مهامي اليوم"><div class="mt-h"><b>مهامي اليوم</b><span class="hint" style="margin:0">${esc(dayName(td))} ${esc(hijri(td))}</span></div>${K.cards||""}
+   <div class="mt-g${K.chart?"":" nc"}"><div class="mt-l">${!d?`<span class="hint" style="margin:0">جارٍ التحقق من المهام…</span>`:L.length?L.map(x=>`<button type="button" class="mt-i${x.red?" r":""}" data-mt="${x.t}"><em>${x.n}</em>${esc(x.l)}</button>`).join(""):`<span class="mt-ok">✓ لا توجد مهام معلّقة الآن.</span>`}</div>${K.chart?`<div class="mt-c">${K.chart}</div>`:""}</div>
    ${sc.length?`<div class="mt-s">${sc.map(k=>`<button type="button" data-mt="${k}">${uiI(UI_TI[k]||"doc")}<span>${esc(tl(k))}</span></button>`).join("")}</div>`:""}</section>`}
 function mtBind(root){if(!root)return;$$("[data-mt]",root).forEach(b=>b.onclick=()=>{S._acct=0;S.adminTab=b.dataset.mt;LS.set("atab",S.adminTab);renderView()})}
 function mtPaint(){const el=document.getElementById("myTd");if(!el)return;el.innerHTML=mtHTML();mtBind(el)}
@@ -2469,7 +2493,22 @@ const uiI=(k,w)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
 const UI_GI={g_home:"home",g_vq:"srch",g_abs:"gAbs",g_stu:"gStu",g_par:"gPar",g_tt:"cal",g_exam:"flask",g_tch:"book",g_ops:"gOps",g_staff:"users",g_set:"gSet",g_forms:"pdoc"};
 const UI_GS={g_home:"الصفحة الرئيسية",g_vq:"استعلام وفرز وطباعة البيانات",g_abs:"متابعة الحضور والانضباط",g_stu:"متابعة بيانات الطلاب",g_par:"التواصل والمتابعة",g_tt:"جدول المدرسة والانتظار",g_exam:"متابعة نتائج الطلاب",g_tch:"بيانات وأعمال المعلمين",g_ops:"الزيارات والاجتماعات",g_staff:"الجودة والمؤشرات",g_set:"إعدادات النظام",g_forms:"استمارات ونماذج إدارية"};
 const UI_TI={home:"home",dash:"att",noexc:"alarm",wsum:"chart",mrep:"doc",live:"clock",vq:"srch",vqt:"srch",vqs:"srch",vqa:"srch",vqf:"list",pforms:"pdoc",vqft:"list",vqfm:"list",vqx:"chart",att:"att",reports:"doc",repeat:"alarm",late:"clock",leave:"out",warn:"bell",absimp:"folder",sabsrep:"doc",stufile:"user",beh:"shield",refs:"cert",certs:"star",plans:"doc",health:"heart",parents:"mega",portal:"user2",visits:"users",duty:"users",tabsrep:"doc",swaps:"clock",fair:"chart",tt:"cal",ttb:"grid",exams:"flask",grade:"pdoc",results:"chart",noora:"doc",noorchk:"chart",recstat:"chart",perfev:"award",nafs:"star",nafs2:"star",mdr:"users",contacts:"users",links:"list",docs:"folder",supworks:"doc",wrep:"chart",cvisit:"chk",meet:"doc",acts:"star",staffm:"users",assign:"list",circ:"doc",evall:"folder",evidence:"folder",kpi:"chart",termrep:"pdoc",settings:"gear",dq:"chk",calendar:"cal",sheets:"grid",sigset:"pdoc",accounts:"user2",roster:"users",maint:"folder",audit:"list",seclog:"shield",forms:"pdoc",shsubs:"doc",studata:"list",portfolio:"award",myport:"award"};
+
+/* v219: سطر «ما ينتظرك» في بطاقات المجموعات */
+function gtInfo(k,d){d=d||{};const n=v=>+v||0,pl=(c,one,two,many)=>c===1?one:c===2?two:c+" "+many;
+  if(k==="g_home"){const kp=d.kp;if(kp&&kp.today&&kp.ser&&kp.ser.length){const x=kp.ser[kp.ser.length-1];if(x[0]===kp.today&&x[2])return["الحضور اليوم "+Math.round(1000-x[1]*1000/x[2])/10+"%",0]}return null}
+  if(k==="g_abs"){const u=n(d.unrec),r=n(d.att);if(u)return[pl(u,"فصل لم يُرصد","فصلان لم يُرصدا","فصول لم تُرصد"),1];if(r)return[pl(r,"طلب تعديل غياب","طلبا تعديل","طلبات تعديل"),1];return null}
+  if(k==="g_tt"){const t=n(d.tabs);return t?[pl(t,"معلم غائب اليوم","معلمان غائبان اليوم","معلمين غائبين اليوم"),1]:null}
+  if(k==="g_tch"){const t=n(d.docs)+n(d.sh);return t?[pl(t,"ملف للمراجعة","ملفان للمراجعة","ملفات للمراجعة"),1]:null}
+  if(k==="g_stu"){const r=n(d.ref),p=n(d.pf);if(r)return[pl(r,"إحالة جديدة","إحالتان جديدتان","إحالة جديدة"),1];if(p)return[pl(p,"استمارة ولي أمر","استمارتان","استمارات أولياء أمور"),1];return null}
+  if(k==="g_ops"){const c=n(d.cv)+n(d.cvRet);return c?[pl(c,"زيارة تحتاج إجراء","زيارتان تحتاجان إجراء","زيارات تحتاج إجراء"),1]:null}
+  return null}
+function gtTag(k,d){const x=gtInfo(k,d);return `<span class="gtag${x&&x[1]?" on":""}" data-gt="${k}">${x?esc(x[0]):"✓ لا شيء معلق"}</span>`}
+function gtPaint(d){document.querySelectorAll(".gtag[data-gt]").forEach(e=>{const x=gtInfo(e.dataset.gt,d);e.textContent=x?x[0]:"✓ لا شيء معلق";e.classList.toggle("on",!!(x&&x[1]))})}
 function uiGroupsHTML(groups,cur,tl){const _k=groups.length>6?Math.ceil(groups.length/2):groups.length,_one=groups.length>6&&groups.length%2===0,big=_one?groups:groups.slice(0,_k),rest=_one?[]:groups.slice(_k);
+  if(groups.length>6){const GC=["#0f8a5f","#18865a","#1a73c9","#13897f","#7a49d6","#c47a1d","#c2416b","#3f51b5","#0a7fa8","#9a6b06","#46596b"],d0=S._bdg&&S._bdg.d;
+    return `<div class="cgr cg2w" style="--n:5">${groups.map((g,i)=>`<button class="cg cg2 t${i<6?i:6+(i-6)%5}" style="--c:${GC[i%GC.length]}" data-ag="${g[0]}" aria-current="${g===cur}"><span class="gsq">${uiI(UI_GI[g[0]]||"grid",2)}</span><b>${esc(g[1])}</b><small>${esc(UI_GS[g[0]]||"")}</small>${gtTag(g[0],d0)}</button>`).join("")}</div>
+   <div class="csub"${cur[3].length<2?" hidden":""}><div class="cpn"><div class="ctag">${uiI(UI_GI[cur[0]]||"grid")}<span>${esc(cur[1])}</span><small>${(cur[3].length>1?cur[3].filter(k=>k!=="home"):cur[3]).length} أقسام</small></div><div class="subnav">${(cur[3].length>1?cur[3].filter(k=>k!=="home"):cur[3]).map(k=>`<button data-at="${k}" aria-current="${k===S.adminTab||(k==="repeat"&&S.adminTab==="warn")}">${uiI(UI_TI[k]||"doc")}<span>${esc(tl(k))}</span></button>`).join("")}</div></div><span class="cill" aria-hidden="true"></span></div>`}
   return `<div class="cgr" style="--n:${_one?_k:big.length}">${big.map((g,i)=>`<button class="cg t${i<6?i:6+(i-6)%5}" data-ag="${g[0]}" aria-current="${g===cur}">${uiI(UI_GI[g[0]]||"grid",1.7)}<b>${esc(g[1])}</b><small>${esc(UI_GS[g[0]]||"")}</small></button>`).join("")}</div>
    ${rest.length?`<div class="cgr r2" style="--n:${Math.min(rest.length,6)}${rest.length===big.length?";max-width:none":""}">${rest.map((g,i)=>`<button class="cg t${_k+i<6?_k+i:6+(_k+i-6)%5}" data-ag="${g[0]}" aria-current="${g===cur}">${uiI(UI_GI[g[0]]||"grid",1.7)}<b>${esc(g[1])}</b><small>${esc(UI_GS[g[0]]||"")}</small></button>`).join("")}</div>`:""}
    <div class="csub"${cur[3].length<2?" hidden":""}><div class="cpn"><div class="ctag">${uiI(UI_GI[cur[0]]||"grid")}<span>${esc(cur[1])}</span><small>${(cur[3].length>1?cur[3].filter(k=>k!=="home"):cur[3]).length} أقسام</small></div><div class="subnav">${(cur[3].length>1?cur[3].filter(k=>k!=="home"):cur[3]).map(k=>`<button data-at="${k}" aria-current="${k===S.adminTab||(k==="repeat"&&S.adminTab==="warn")}">${uiI(UI_TI[k]||"doc")}<span>${esc(tl(k))}</span></button>`).join("")}</div></div><span class="cill" aria-hidden="true"></span></div>`}
