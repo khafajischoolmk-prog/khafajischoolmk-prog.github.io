@@ -645,6 +645,18 @@ html,body{overflow-x:clip}
 .mt-g .mt-i{width:100%;justify-content:flex-start;text-align:start}
 .mt-c{display:flex}.mt-c .kp-c{margin:0;flex:1;display:flex;flex-direction:column;gap:6px}.mt-c .kp-g svg{flex:1;height:auto;min-height:64px}
 @media (max-width:700px){.mt-g{grid-template-columns:1fr}.mt-c .kp-g svg{flex:none;height:80px}}
+
+/* v219: الوضع الداكن للبطاقات */
+[data-theme="dark"] .cg.cg2[aria-current="true"]{background:linear-gradient(160deg,#1b3531,#132724);color:#eaf4f1;box-shadow:0 14px 26px rgba(0,0,0,.35)}
+[data-theme="dark"] .cg.cg2[aria-current="true"] small,[data-theme="dark"] .cg.cg2 small{color:#a9bfba}
+[data-theme="dark"] .cg.cg2 .gtag{background:#16231f;color:#a9bfba;border-color:#2a3b37}
+[data-theme="dark"] .cg.cg2 .gtag.on{color:color-mix(in srgb,var(--c) 55%,#fff);border-color:color-mix(in srgb,var(--c) 45%,#16231f)}
+@media (prefers-color-scheme:dark){
+:root:not([data-theme="light"]) .cg.cg2[aria-current="true"]{background:linear-gradient(160deg,#1b3531,#132724);color:#eaf4f1;box-shadow:0 14px 26px rgba(0,0,0,.35)}
+:root:not([data-theme="light"]) .cg.cg2[aria-current="true"] small,:root:not([data-theme="light"]) .cg.cg2 small{color:#a9bfba}
+:root:not([data-theme="light"]) .cg.cg2 .gtag{background:#16231f;color:#a9bfba;border-color:#2a3b37}
+:root:not([data-theme="light"]) .cg.cg2 .gtag.on{color:color-mix(in srgb,var(--c) 55%,#fff);border-color:color-mix(in srgb,var(--c) 45%,#16231f)}
+}
 </style>
 <style>
 /* attendance list */
