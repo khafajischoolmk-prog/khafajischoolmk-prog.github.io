@@ -899,6 +899,16 @@ body.dr-open .drawer{visibility:visible;transition:transform .22s ease,visibilit
  table.lst .btn{white-space:normal;padding:6px 9px;font-size:.78rem;line-height:1.35;border-radius:10px}
  table.lst .chip{padding:2px 7px;font-size:.74rem}
 }
+
+/* v221: حدود أوضح */
+:root:not([data-theme="dark"]){--line:#c2d4ce}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--line:#263936}}
+.subnav button{border:1.5px solid #c9dbd5!important;box-shadow:0 1px 2px rgba(15,60,50,.06)!important}
+.subnav button:hover{border-color:#8fb9ad!important}
+input,select,textarea{border:1.5px solid var(--line)}
+input:focus,select:focus,textarea:focus{border-color:#0e7466;outline:none;box-shadow:0 0 0 3px rgba(14,116,102,.12)}
+[data-theme="dark"] .subnav button{border-color:#2f4642!important;box-shadow:none!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .subnav button{border-color:#2f4642!important;box-shadow:none!important}}
 </style>
 <script>try{var __t=localStorage.getItem("theme");if(__t==="dark"||__t==="light")document.documentElement.setAttribute("data-theme",__t)}catch(e){}</script>
 </head>
